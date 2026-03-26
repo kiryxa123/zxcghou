@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ИИ в медицине — стиль Appt</title>
+  <style>
+    /* Дизайн платформы Appt
+       Источник: Purrweb portfolio (appt)
+       Основные цвета: 
+         — основной фон: #F7F7F7 (светло-серый)
+         — карточки/блоки: #FFFFFF (белый)
+         — акцентный бирюзовый: #00B4B5
+         — дополнительные оттенки: #E8F3F0 (мягкий мятный), #BDC5C0 (серый), #302F33 (тёмный для текста)
+         — текст: #302F33 (тёмно-серый), #6B6B6B (серый)
+       Шрифт: Roboto (гротеск)
+       Скругления: минимальные, прямые углы, современно
+       Характерные черты: чистые линии, много воздуха, сетки, иконки
+    */
+
+    /* Подключение Roboto */
+    @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #F7F7F7;  /* основной фон Appt */
+      font-family: 'Roboto', sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 2rem 1.5rem;
+      color: #302F33;
+    }
+
+    /* Главный контейнер — светлая карточка */
+    .appt-card {
+      max-width: 1200px;
+      width: 100%;
+      background: #FFFFFF;
+      border-radius: 0;       /* современные прямые углы */
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03), 0 1px 3px rgba(0, 0, 0, 0.02);
+      padding: 2rem 2.5rem 3rem 2.5rem;
+      border: none;
+    }
+
+    /* Шапка в стиле Appt */
+    .appt-header {
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 2px solid #E8F3F0;  /* мятный деликатный разделитель */
+    }
+
+    /* Верхняя строка с метриками (как в дашборде Appt) */
+    .appt-metrics {
+      display: flex;
+      gap: 2rem;
+      margin-bottom: 1.5rem;
+      color: #6B6B6B;
+      font-size: 14px;
+    }
+
+    .metric-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-item span:first-child {
+      color: #00B4B5;
+      font-weight: 500;
+    }
+
+    .appt-header h1 {
+      font-size: 2.2rem;
+      font-weight: 700;
+      line-height: 1.3;
+      color: #302F33;
+      margin: 0.5rem 0 0.25rem 0;
+      letter-spacing: -0.3px;
+    }
+
+    .appt-subhead {
+      color: #6B6B6B;
+      font-size: 1rem;
+      font-weight: 400;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .appt-badge {
+      background: #E8F3F0;
+      color: #00B4B5;
+      font-weight: 500;
+      font-size: 0.8rem;
+      padding: 0.3rem 0.8rem;
+      border-radius: 20px;
+      display: inline-block;
+    }
+
+    /* Секции как в Appt — с заголовками */
+    .appt-section {
+      margin: 3rem 0 2rem 0;
+    }
+
+    .appt-section-title {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    .appt-section-title h2 {
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: #302F33;
+      letter-spacing: -0.2px;
+    }
+
+    .appt-section-title .accent-line {
+      height: 4px;
+      width: 40px;
+      background: #00B4B5;
+    }
+
+    /* Вступительный блок — как "Прототип" в Appt */
+    .appt-intro {
+      background: #F7F7F7;
+      padding: 2rem 2.5rem;
+      margin-bottom: 2.5rem;
+      border-left: 6px solid #00B4B5;
+      font-size: 1.05rem;
+      color: #302F33;
+      line-height: 1.6;
+    }
+
+    /* Сетка для карточек (как в портфолио) */
+    .appt-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    /* Карточка с текстом и изображением — как "Расписание сотрудников" */
+    .appt-block {
+      display: flex;
+      gap: 2rem;
+      background: #FFFFFF;
+      border: 1px solid #E8F3F0;
+      padding: 1.8rem 2rem;
+      transition: all 0.2s ease;
+    }
+
+    .appt-block:hover {
+      border-color: #00B4B5;
+      box-shadow: 0 8px 20px rgba(0, 180, 181, 0.05);
+    }
+
+    /* Текстовая часть */
+    .appt-text {
+      flex: 1;
+    }
+
+    .appt-text h3 {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: #302F33;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .appt-text h3 .appt-counter {
+      color: #00B4B5;
+      font-weight: 500;
+      font-size: 1rem;
+      background: #E8F3F0;
+      padding: 0.2rem 0.6rem;
+      border-radius: 16px;
+    }
+
+    .appt-text p {
+      margin-bottom: 1rem;
+      color: #302F33;
+      font-size: 1rem;
+    }
+
+    .appt-text strong {
+      font-weight: 600;
+      color: #00B4B5;
+      display: block;
+      margin: 1rem 0 0.5rem 0;
+    }
+
+    .appt-text ul {
+      margin: 0.5rem 0 0 1.2rem;
+      color: #6B6B6B;
+      list-style-type: none;
+    }
+
+    .appt-text ul li {
+      margin-bottom: 0.4rem;
+      position: relative;
+      padding-left: 1.2rem;
+    }
+
+    .appt-text ul li::before {
+      content: "—";
+      color: #00B4B5;
+      position: absolute;
+      left: 0;
+    }
+
+    /* Место для картинки — как в Appt (квадратные, с обводкой) */
+    .appt-image-placeholder {
+      width: 200px;
+      height: 200px;
+      flex-shrink: 0;
+      background: #F7F7F7;
+      border: 1px solid #BDC5C0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+      color: #BDC5C0;
+      font-size: 2rem;
+      /* защита от кликов */
+      pointer-events: none;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    .appt-image-placeholder::after {
+      content: "📊";          /* иконка данных */
+      opacity: 0.6;
+      font-size: 48px;
+      filter: grayscale(30%);
+    }
+
+    .appt-image-placeholder img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      pointer-events: none;
+      -webkit-user-drag: none;
+      user-select: none;
+    }
+
+    .appt-image-placeholder:has(img)::after {
+      display: none;
+    }
+
+    /* Блок с тремя колонками статистики (как в футере Appt) */
+    .appt-stats {
+      display: flex;
+      justify-content: space-around;
+      background: #E8F3F0;
+      padding: 1.8rem 2rem;
+      margin: 3rem 0 2rem 0;
+      border: 1px solid #BDC5C0;
+    }
+
+    .stat-item {
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.2rem;
+      font-weight: 700;
+      color: #00B4B5;
+      line-height: 1;
+    }
+
+    .stat-label {
+      color: #6B6B6B;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* Заключение как отдельный блок */
+    .appt-conclusion {
+      background: #FFFFFF;
+      border: 2px solid #E8F3F0;
+      padding: 2rem 2.5rem;
+      margin-top: 3rem;
+    }
+
+    .appt-conclusion strong {
+      color: #00B4B5;
+      font-size: 1.2rem;
+      display: block;
+      margin-bottom: 0.8rem;
+    }
+
+    /* Цветовые акценты */
+    .text-muted {
+      color: #6B6B6B;
+    }
+
+    /* Адаптивность */
+    @media (max-width: 800px) {
+      .appt-block {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .appt-image-placeholder {
+        width: 180px;
+        height: 180px;
+        margin-top: 1rem;
+      }
+
+      .appt-header h1 {
+        font-size: 1.8rem;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body { padding: 1rem; }
+      .appt-card { padding: 1.5rem; }
+      .appt-stats { flex-direction: column; gap: 1rem; }
+    }
+
+    /* Кнопка-индикатор как в интерфейсах Appt */
+    .appt-tag {
+      background: #E8F3F0;
+      color: #00B4B5;
+      padding: 0.2rem 1rem;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      display: inline-block;
+    }
+    /* Плавная прокрутка страницы */
+html {
+  scroll-behavior: smooth;
+}
+/* NAVBAR */
+
+.appt-navbar{
+  position: sticky;
+  top: 0;
+  width: 100%;
+  max-width: 1200px;
+  background: #FFFFFF;
+  border: 1px solid #E8F3F0;
+  padding: 12px 20px;
+  margin-bottom: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  z-index: 1000;
+}
+
+.nav-logo{
+  font-weight: 700;
+  color: #00B4B5;
+  font-size: 18px;
+}
+
+.nav-links{
+  display: flex;
+  gap: 25px;
+}
+
+.nav-links a{
+  text-decoration: none;
+  color: #302F33;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.nav-links a:hover{
+  color: #00B4B5;
+}
+  </style>
+</head>
+<body>
+ <!-- NAVBAR -->
+<nav class="appt-navbar">
+  <div class="nav-logo">AI Medicine</div>
+
+  <div class="nav-links">
+    <a href="#top">Главная</a>
+    <a href="#achievements">Достижения</a>
+    <a href="#future">Будущее</a>
+    <a href="#conclusion">Заключение</a>
+    <a href="#contacts">Контакты</a>
+  </div>
+</nav>
+  <div class="appt-card" id="top">
+    <!-- Шапка в стиле Appt: метрики, заголовок, статус -->
+    <div class="appt-header">
+      <div class="appt-metrics">
+        <div class="metric-item">
+        </div>
+        <div class="metric-item">
+        </div>
+        <div class="metric-item">
+        </div>
+      </div>
+      
+      <h1>Искусственный интеллект в диагностике и лечении: текущие достижения и вызовы</h1>
+      
+      <div class="appt-subhead">
+        <span class="appt-badge">аналитический обзор</span>
+        <span class="text-muted">• 12 мин чтения</span>
+      </div>
+    </div>
+
+    <!-- Основной контент -->
+    <div class="appt-content">
+      
+      <!-- Вступление (как блок "Прототип" в Appt) -->
+      <div class="appt-intro">
+<p>
+Искусственный интеллект активно внедряется в медицинскую сферу и меняет подходы к диагностике и лечению заболеваний. Современные алгоритмы способны анализировать медицинские изображения, данные обследований и электронные медицинские карты пациентов, помогая врачам быстрее и точнее выявлять различные патологии.
+</p>
+
+<p>
+Использование технологий машинного обучения и нейронных сетей позволяет обнаруживать заболевания на ранних стадиях, прогнозировать развитие некоторых болезней и поддерживать принятие врачебных решений. Однако внедрение искусственного интеллекта также сопровождается рядом вызовов, включая вопросы безопасности медицинских данных и надёжности алгоритмов.
+</p>
+</div>
+
+        <p>
+      </div>
+
+      <!-- Раздел 1: Достижения -->
+      <div class="appt-section" id="achievements">
+        <div class="appt-section-title">
+          <div class="accent-line"></div>
+          <h2>Текущие достижения ИИ в медицине</h2>
+        </div>
+        
+        <div class="appt-grid">
+
+          <!-- Блок 1: Радиология -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">01</span> Радиология и медицинская визуализация</h3>
+              <p>Наиболее наглядным достижением ИИ в медицине является анализ медицинских изображений. Современные нейросетевые модели способны идентифицировать патологические изменения на рентгенограммах, компьютерных и магнитно-резонансных томограммах с точностью, сопоставимой или превышающей результаты врачей-специалистов.</p>
+              <strong>Ключевые результаты:</strong>
+              <ul>
+                <li>Алгоритмы Google Health выявляют злокачественные новообразования молочной железы на маммограммах с меньшим количеством ложноположительных и ложноотрицательных заключений по сравнению с радиологами.</li>
+                <li>Системы на базе ИИ обнаруживают микрометастазы при раке лёгких, которые могут быть пропущены при визуальном анализе.</li>
+                <li>Нейросети анализируют изображения сетчатки и диагностируют диабетическую ретинопатию.</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Снимок МРТ"></div>
+          </div>
+
+          <!-- Блок 2: Кардиология -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">02</span> Кардиология</h3>
+              <p>Искусственный интеллект демонстрирует способность прогнозировать сердечно-сосудистые события до их клинической манифестации.</p>
+              <strong>Инновационные разработки:</strong>
+              <ul>
+                <li>Алгоритмы машинного обучения анализируют ЭКГ и выявляют пациентов с высоким риском внезапной сердечной смерти.</li>
+                <li>Системы компьютерного зрения оценивают коронарный кальций на стандартных рентгенограммах грудной клетки.</li>
+                <li>ИИ-модели прогнозируют риск инфаркта точнее традиционных шкал (SCORE).</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Кардиограмма"></div>
+          </div>
+
+          <!-- Блок 3: Онкология -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">03</span> Онкология</h3>
+              <p>В лечении злокачественных новообразований ИИ задействован на всех этапах — от диагностики до подбора персонализированной терапии.</p>
+              <strong>Важные успехи:</strong>
+              <ul>
+                <li>Патологические алгоритмы классифицируют опухоли точнее опытных патологоанатомов.</li>
+                <li>Системы анализа геномных данных подбирают таргетные препараты с учётом конкретных мутаций.</li>
+                <li>ИИ прогнозирует индивидуальный ответ пациента на химиотерапию.</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Гистология"></div>
+          </div>
+
+          <!-- Блок 4: Неврология -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">04</span> Неврология</h3>
+              <p>Диагностика нейродегенеративных заболеваний представляет одну из наиболее сложных задач, однако ИИ постепенно продвигает её решение.</p>
+              <strong>Достижения:</strong>
+              <ul>
+                <li>Алгоритмы выявляют ранние признаки болезни Альцгеймера по данным МРТ за годы до появления клинических симптомов.</li>
+                <li>Нейросети анализируют речевую продукцию и моторные паттерны пациентов, помогая диагностировать болезнь Паркинсона.</li>
+                <li>Системы ИИ обрабатывают данные ЭЭГ для выявления эпилептической активности.</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Снимок мозга"></div>
+          </div>
+
+          <!-- Блок 5: Хирургия -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">05</span> Хирургия и роботизированные системы</h3>
+              <p>Хирургические роботизированные комплексы с элементами искусственного интеллекта приобретают всё большую автономность.</p>
+              <strong>Инновации:</strong>
+              <ul>
+                <li>Роботизированные системы с ИИ-ассистенцией выполняют микрошвы с точностью, недоступной человеку.</li>
+                <li>Системы интраоперационной навигации помогают предотвращать повреждения критических анатомических структур.</li>
+                <li>Предиктивные алгоритмы предупреждают о потенциальных осложнениях.</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Робот-хирург"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Раздел 2: Вызовы -->
+      <div class="appt-section">
+        <div class="appt-section-title">
+          <div class="accent-line"></div>
+          <h2>Актуальные вызовы и проблемные аспекты</h2>
+        </div>
+        
+        <div class="appt-grid">
+          <!-- Блок 6: Качество данных -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">01</span> Качество и репрезентативность данных</h3>
+              <p>Эффективность ИИ непосредственно зависит от качества данных; при их неполноте или систематической ошибке алгоритмы демонстрируют снижение точности.</p>
+              <strong>Основные проблемы:</strong>
+              <ul>
+                <li>Преимущественное использование обучающих выборок из развитых стран ограничивает их применимость для иных популяций.</li>
+                <li>Недостаточное разнообразие данных приводит к снижению диагностической точности для различных расовых и этнических групп.</li>
+                <li>Качество медицинских данных часто остаётся неудовлетворительным вследствие различий в стандартах, ошибок ввода и пропущенных значений.</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Данные"></div>
+          </div>
+
+          <!-- Блок 7: Прозрачность -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">02</span> Прозрачность и объяснимость</h3>
+              <p>Современные нейросетевые модели часто функционируют по принципу «чёрного ящика»: результат доступен, но логика его получения остаётся неясной.</p>
+              <strong>Почему это проблема:</strong>
+              <ul>
+                <li>Клиницисты проявляют недоверие к рекомендациям при отсутствии понимания логики их формирования.</li>
+                <li>В случае ошибки установление её причины затруднено.</li>
+                <li>Пациенты обладают правом на получение информации об основаниях поставленного диагноза.</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Прозрачность"></div>
+          </div>
+
+          <!-- Блок 8: Интеграция -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">03</span> Интеграция в клиническую практику</h3>
+              <p>Даже высокоточные алгоритмы остаются невостребованными при отсутствии интеграции в повседневную клиническую практику.</p>
+              <strong>Трудности внедрения:</strong>
+              <ul>
+                <li>Электронные медицинские карты зачастую несовместимы с системами искусственного интеллекта.</li>
+                <li>Клинические рабочие процессы не адаптированы для использования алгоритмов.</li>
+                <li>Врачи испытывают информационную перегрузку вследствие большого количества уведомлений.</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Интеграция"></div>
+          </div>
+
+          <!-- Блок 9: Этические вопросы -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">04</span> Этические и юридические вопросы</h3>
+              <p>Применение ИИ порождает множество сложных этических дилемм.</p>
+              <strong>Ключевые вопросы:</strong>
+              <ul>
+                <li>Кто несёт ответственность за ошибки ИИ: разработчик, врач или медицинское учреждение?</li>
+                <li>Как обеспечить конфиденциальность пациентов при использовании данных для обучения алгоритмов?</li>
+                <li>Как обеспечить равный доступ к диагностике на основе ИИ для различных социально-экономических групп?</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Этика"></div>
+          </div>
+
+          <!-- Блок 10: Регулирование -->
+          <div class="appt-block">
+            <div class="appt-text">
+              <h3><span class="appt-counter">05</span> Регулирование и одобрение</h3>
+              <p>Медицина — одна из наиболее строго регулируемых сфер, и ИИ здесь не исключение.</p>
+              <strong>Проблемы регулирования:</strong>
+              <ul>
+                <li>Традиционные процессы регуляторного одобрения слишком инертны для быстро развивающихся алгоритмов.</li>
+                <li>Отсутствуют установленные методы проверки безопасности систем, продолжающих обучение после внедрения.</li>
+                <li>Различия в регуляторных требованиях между странами затрудняют глобальное внедрение.</li>
+              </ul>
+            </div>
+            <div class="appt-image-placeholder" aria-label="Регулирование"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Блок "Будущее" -->
+      <div class="appt-section" id="future">
+        <div class="appt-section-title">
+          <div class="accent-line"></div>
+          <h2>Будущее ИИ в медицине</h2>
+        </div>
+        
+        <div class="appt-block">
+          <div class="appt-text">
+            <p>Несмотря на существующие вызовы, перспективы развития представляются многообещающими. ИИ не заменит врачей, но станет их незаменимым инструментом — подобно тому, как стетоскоп или МРТ стали стандартом медицинской практики. Мы движемся к модели медицины, в которой:</p>
+            <ul>
+              <li>Каждый пациент будет обладать персональным ИИ-ассистентом, следящим за состоянием его здоровья.</li>
+              <li>Диагнозы будут устанавливаться на годы раньше, на стадии, когда патологический процесс ещё обратим.</li>
+              <li>Терапия будет подбираться индивидуально, с учётом генетического профиля пациента.</li>
+              <li>Врачи освободятся от рутинной документационной нагрузки и смогут уделять больше времени непосредственной работе с пациентами.</li>
+            </ul>
+          </div>
+          <div class="appt-image-placeholder" aria-label="Будущее"></div>
+        </div>
+      </div>
+      <!-- Заключение -->
+      <div class="appt-conclusion" id="conclusion">
+        <strong>Заключение</strong>
+        <p>Искусственный интеллект уже сегодня вносит вклад в спасение жизней и трансформацию медицины. Однако путь к широкому внедрению сопряжён с необходимостью решения серьёзных проблем — от технических до этических. Только консолидированными усилиями разработчиков, клиницистов, регуляторов и пациентов возможно реализовать потенциал ИИ на благо человечества.</p>
+        <!-- ДОПОЛНИТЕЛЬНАЯ ИНФОРМАЦИЯ -->
+<div class="appt-section">
+
+  <div class="appt-section-title">
+    <div class="accent-line"></div>
+    <h2>Дополнительная информация</h2>
+  </div>
+
+  <div class="appt-block">
+    <div class="appt-text">
+      <p>
+        Развитие искусственного интеллекта в медицинской сфере связано не только с технологическими
+        достижениями, но и с изменением подходов к организации здравоохранения. Современные системы
+        машинного обучения позволяют анализировать большие объёмы медицинских данных, выявлять
+        закономерности и поддерживать врачей в процессе принятия клинических решений.
+      </p>
+
+      <p>
+        В перспективе интеграция ИИ в медицинские информационные системы может существенно повысить
+        эффективность диагностики, снизить вероятность врачебных ошибок и ускорить процесс разработки
+        новых методов лечения. При этом ключевым фактором успешного внедрения остаётся сохранение
+        баланса между технологическими возможностями и этическими принципами медицинской практики.
+      </p>
+    </div>
+  </div>
+
+</div>
+        <!-- CONTACTS -->
+<div class="appt-section" id="contacts">
+
+  <div class="appt-section-title">
+    <div class="accent-line"></div>
+    <h2>Контакты для справки</h2>
+  </div>
+
+  <div class="appt-block">
+    <div class="appt-text">
+      <p><strong>Email:</strong> support@ai-medicine.org</p>
+      <p><strong>Телефон:</strong> +79393088749</p>
+      <p><strong>Адрес:</strong> Riga, Latvia</p>
+      <p class="text-muted">
+        Если у вас есть вопросы по материалу или сотрудничеству,
+        свяжитесь с нами любым удобным способом.
+      </p>
+    </div>
+  </div>
+
+</div>
+      </div>
+
+      <!-- Дополнительная метка -->
+      <div style="margin-top: 2rem; text-align: right;">
+        <span class="appt-tag">#AI #медицина #аналитика</span>
+      </div>
+    </div>
+
+    <!-- Инструкция по добавлению картинок -->
+    <!-- 
+      КАК ДОБАВИТЬ СВОИ КАРТИНКИ:
+      Внутри каждого <div class="appt-image-placeholder"></div> поместите тег <img> с вашей ссылкой.
+      Например:
+      <div class="appt-image-placeholder">
+        <img src="https://ваш-сайт/фото.jpg" alt="Радиология">
+      </div>
+      Псевдоэлемент с иконкой 📊 автоматически исчезнет.
+    -->
+  </div>
+  </div>
+<script>
+/* сохраняем позицию прокрутки */
+window.addEventListener("scroll", function () {
+  sessionStorage.setItem("scrollPosition", window.scrollY);
+});
+
+/* проверяем тип загрузки страницы */
+window.addEventListener("load", function () {
+
+  const navigationType = performance.getEntriesByType("navigation")[0].type;
+
+  if (navigationType === "reload") {
+    const scrollPosition = sessionStorage.getItem("scrollPosition");
+    if (scrollPosition !== null) {
+      window.scrollTo(0, parseInt(scrollPosition));
+    }
+  } else {
+    window.scrollTo(0, 0);
+  }
+
+});
+</script>
+</body>
+</html>
